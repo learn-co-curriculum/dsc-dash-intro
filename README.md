@@ -16,7 +16,7 @@ In this lesson you will:
 
 ### Static Web Pages
 
-Recall our simple Flask app home page (from the `/` route):
+Recall the simple Flask app home page (from the `/` route):
 
 ![hello world page](https://curriculum-content.s3.amazonaws.com/data-science/images/flask_hello_world.png)
 
@@ -24,13 +24,13 @@ That home page is able to display information, but the interface is fundamentall
 
 ### Dynamic Web Pages
 
-When we developed our `/predict` route, we made an API interface that could dynamically generate results, but that interface was only accessible through code. What if we want an interface where a user can specify the values being used for prediction?
+When you developed your `/predict` route, you made an API interface that could dynamically generate results, but that interface was only accessible through code. What if you want an interface where a user can specify the values being used for prediction?
 
-To do that, we'll make a ***dynamic*** web page. The user can change values using familiar web form inputs (text boxes, drop-downs, checkboxes, sliders, etc.) and the model's predictions will automatically appear on the page. This kind of interface is much easier and more intuitive than using the `requests` library, and looks great in a data science portfolio!
+To do that, you'll make a ***dynamic*** web page. The user can change values using familiar web form inputs (text boxes, drop-downs, checkboxes, sliders, etc.) and the model's predictions will automatically appear on the page. This kind of interface is much easier and more intuitive than using the `requests` library, and looks great in a data science portfolio!
 
 Dynamic web pages are built using **JavaScript** in addition to HTML and CSS. JavaScript is able to attach ***callbacks*** to the HTML elements (e.g. triggered by clicking on a button), which can optionally interact with the backend server before ultimately making some change to the page's HTML and/or CSS.
 
-Learning JavaScript can be complicated. Some of the constructs are similar to Python (e.g. first-class functions) but the syntax and error behavior are fairly different. Luckily with **Dash** we can create ***components*** and callbacks just using Python, and they will be translated into the appropriate HTML, CSS, and JavaScript code by Dash!
+Learning JavaScript can be complicated. Some of the constructs are similar to Python (e.g. first-class functions) but the syntax and error behavior are fairly different. Luckily with **Dash** you can create ***components*** and callbacks just using Python, and they will be translated into the appropriate HTML, CSS, and JavaScript code by Dash!
 
 ## A "Hello World" Dash App
 
@@ -38,22 +38,22 @@ Dash is built on top of Flask, and therefore has a similar setup. Once you have 
 
 ### Setting up a Dash Environment
 
-Clone this repository locally so you can work through these examples!
+Clone this repository locally so you can work through these examples
 
-Let's make a new `conda` environment for developing our Dash app.
+Make a new `conda` environment for developing your Dash app.
 
 Run this code in the terminal:
 
 ```bash
-conda create --name dash-env python=3.8.12 pip
+conda create --name dash-env python=3.9 pip -y
 conda activate dash-env
-pip install notebook
-pip install Werkzeug==2.0.3
-pip install jupyter-dash==0.4
-pip install dash-bootstrap-components==1.0
-pip install pandas==1.4
-pip install joblib==0.17.0
-pip install scikit-learn==0.23.2
+conda install -c conda-forge notebook -y
+conda install -c conda-forge  Werkzeug -y
+conda install -c conda-forge  jupyter-dash -y
+conda install -c conda-forge  pandas -y
+conda install -c conda-forge  joblib -y
+conda install -c conda-forge scikit-learn -y
+conda install -c conda-forge dash-bootstrap-components -y
 ```
 
 Now, launch this notebook using `jupyter notebook`
@@ -62,7 +62,7 @@ Now, launch this notebook using `jupyter notebook`
 
 Unlike with Flask alone, there is functionality to run a Dash app directly within a Jupyter Notebook!
 
-We'll run a basic Dash app below, and when you run the cell containing `app.run_server`, the dynamic web page should appear directly below the cell:
+You'll run a basic Dash app below, and when you run the cell containing `app.run_server`, the dynamic web page should appear directly below the cell:
 
 
 ```python
@@ -104,15 +104,15 @@ If the above code didn't work, make sure you read the error message.
 * If you get an `OSError` such as `Address already in use` or `An attempt was made to access a socket in a way forbidden by its access permissions`, that's the same issue as with Flask, where something else is running on port 5000 on your computer
   * In `app.run_server`, change the value of the `port` argument to something other than 5000 (e.g. 5001). This should resolve the `OSError`.
 
-## Utilizing Components in Our Dash App Layout
+## Utilizing Components in Your Dash App Layout
 
-Right now the only thing in our app is the text "Hello, World!". Let's make it a bit more interesting!
+Right now the only thing in your app is the text "Hello, World!". Now make it a bit more interesting.
 
 ### Markdown Components
 
-Previously we used an HTML `<p>` tag to display the "Hello, World!" text. In Dash, this is instantiated using `html.P`. You can find documentation for this component and all other Dash HTML components [here](https://dash.plotly.com/dash-html-components).
+Previously you used an HTML `<p>` tag to display the "Hello, World!" text. In Dash, this is instantiated using `html.P`. You can find documentation for this component and all other Dash HTML components [here](https://dash.plotly.com/dash-html-components).
 
-However as a data scientist who has typically been working in a Jupyter Notebook, you are probably more familiar with Markdown than HTML. Luckily there is a Markdown component we can use that will translate Markdown into HTML for us. This is the `dcc.Markdown` component ([documentation here](https://dash.plotly.com/dash-html-components)). Usage is fairly straightforward; you just specify the Markdown as a string argument (typically a triple-quoted multi-line string):
+However as a data scientist who has typically been working in a Jupyter Notebook, you are probably more familiar with Markdown than HTML. Luckily there is a Markdown component you can use that will translate Markdown into HTML for us. This is the `dcc.Markdown` component ([documentation here](https://dash.plotly.com/dash-html-components)). Usage is fairly straightforward; you just specify the Markdown as a string argument (typically a triple-quoted multi-line string):
 
 
 ```python
@@ -154,7 +154,7 @@ app.run_server(mode="inline", host="localhost", port=5000)
 
 ### DataTable Components
 
-For a data science app, it is often useful to be able to display tabular data. Let's go ahead and load in the Iris Dataset from scikit-learn:
+For a data science app, it is often useful to be able to display tabular data. Go ahead and load in the Iris Dataset from scikit-learn:
 
 
 ```python
@@ -168,9 +168,9 @@ full_dataset = pd.concat([X, y], axis=1)
 full_dataset
 ```
 
-What if we wanted to display this data in our web page? Enter the DataTable component ([documentation here](https://dash.plotly.com/datatable)). This is a Dash component designed for just this purpose!
+What if you wanted to display this data in your web page? Enter the DataTable component ([documentation here](https://dash.plotly.com/datatable)). This is a Dash component designed for just this purpose!
 
-Let's go ahead and display a random sample of 10 records from the dataset:
+Go ahead and display a random sample of 10 records from the dataset:
 
 
 ```python
@@ -194,9 +194,9 @@ Great!
 
 ### Combining Multiple Components
 
-So far, we have reassigned the `layout` attribute of our app each time, so that it originally was a `<p>` tag containing "Hello, World!", then it was a Markdown component with various headings and other content, then it was a DataTable with data from the Iris Dataset.
+So far, you have reassigned the `layout` attribute of your app each time, so that it originally was a `<p>` tag containing "Hello, World!", then it was a Markdown component with various headings and other content, then it was a DataTable with data from the Iris Dataset.
 
-If we want to use more than one component in the same web page?
+What if you want to use more than one component in the same web page?
 
 The most straightforward way is to use multiple nested Div components ([documentation here](https://dash.plotly.com/dash-html-components/div)). Div components for Dash are represented as HTML `<div>` tags, which are generic HTML container elements.
 
@@ -207,7 +207,7 @@ The example below combines some Markdown text with the DataTable with data from 
 # create new dash app here
 app = Dash(__name__)
 
-# declaring our individual components
+# declaring your individual components
 
 markdown = dcc.Markdown("""
 # Iris Dataset
@@ -233,13 +233,13 @@ app.layout = html.Div(children=[
 app.run_server(mode="inline", height="450", host="localhost", port=5000)
 ```
 
-Now we have both Markdown and DataTable components in the same web page!
+Now you have both Markdown and DataTable components in the same web page!
 
-### Styling Our Components
+### Styling Your Components
 
-This is an optional step, but it makes the components look a bit better together. If you know how to work with CSS, you can define your own custom styles and follow [these instructions](https://dash.plotly.com/external-resources), but for now we'll just use the recommended style sheet from Dash.
+This is an optional step, but it makes the components look a bit better together. If you know how to work with CSS, you can define your own custom styles and follow [these instructions](https://dash.plotly.com/external-resources), but for now you'll just use the recommended style sheet from Dash.
 
-Style sheets are added when the `app` is instantiated. Then we can add our Markdown and DataTable elements and see them with their new styles:
+Style sheets are added when the `app` is instantiated. Then you can add your Markdown and DataTable elements and see them with their new styles:
 
 
 ```python
@@ -265,13 +265,13 @@ Not a huge change, but the look and feel is more polished with the stylesheet th
 
 ## Callbacks
 
-So far, we have used Dash components to avoid writing HTML and CSS directly, but we still fundamentally have a static page. Let's add a callback to create some dynamic, interactive functionality!
+So far, you have used Dash components to avoid writing HTML and CSS directly, but you still fundamentally have a static page. Add a callback to create some dynamic, interactive functionality!
 
 ### HTML and JavaScript Background: Element `id`s
 
 One of the strategies for connecting HTML and JavaScript logic uses the `id` attribute of the HTML elements. In properly-formatted HTML, the `id` attribute is a unique identifier that only applies to a single element on the page. When the `id` has been declared, then JavaScript can locate the element using that `id` in order to specify callback behavior.
 
-Let's start with a simple HTML page, consisting of a `<div>` containing a `<button>` tag and a `<p>` tag:
+Start with a simple HTML page, consisting of a `<div>` containing a `<button>` tag and a `<p>` tag:
 
 ```html
 <div>
@@ -280,7 +280,7 @@ Let's start with a simple HTML page, consisting of a `<div>` containing a `<butt
 </div>
 ```
 
-And let's say that when we click on that `<button>` tag, we want the text of the `<p>` tag to change to say "The button was clicked!" instead of saying "The button has not been clicked".
+And say that when you click on that `<button>` tag, you want the text of the `<p>` tag to change to say "The button was clicked!" instead of saying "The button has not been clicked".
 
 To do that in JavaScript, the code would look something like this:
 
@@ -301,7 +301,7 @@ Don't worry too much about the specific syntax here. The main takeaway is that:
 
 ### A Simple Callback
 
-Let's implement the HTML and JavaScript code above using Dash instead. We'll need a layout consisting of a Div component for the `<div>` tag, a Button component ([documentation here](https://dash.plotly.com/dash-html-components/button)) for the `<button>` tag, a P component for the `<p>` tag, a function that modifies the component's text, and a decorator that connects the click event to the text modification.
+Implement the HTML and JavaScript code above using Dash instead. You'll need a layout consisting of a Div component for the `<div>` tag, a Button component ([documentation here](https://dash.plotly.com/dash-html-components/button)) for the `<button>` tag, a P component for the `<p>` tag, a function that modifies the component's text, and a decorator that connects the click event to the text modification.
 
 
 ```python
@@ -310,7 +310,7 @@ from dash import Input, Output
 # create new dash app that uses the stylesheet list
 app = Dash(__name__, external_stylesheets=external_stylesheets)
 
-# set the layout to our simple html page with id attributes
+# set the layout to your simple html page with id attributes
 app.layout = html.Div(children=[
     html.Button("Click here", id="btn"),
     html.P(id="p")
@@ -339,11 +339,11 @@ This is more like a spreadsheet cell that calculates a value based on the value 
 
 ## Bringing It All Together
 
-Let's take our Markdown + DataTable example from earlier and make it interactive!
+Take your Markdown + DataTable example from earlier and make it interactive!
 
-Specifically we'll add a Modal component (essentially like a pop-up, although it is part of the same HTML page) that displays additional information about a record in our DataTable when the user clicks on the table.
+Specifically you'll add a Modal component (essentially like a pop-up, although it is part of the same HTML page) that displays additional information about a record in your DataTable when the user clicks on the table.
 
-Inside that Modal component, we'll display a photo of the iris type as well as a list of all attributes of the selected record.
+Inside that Modal component, you'll display a photo of the iris type as well as a list of all attributes of the selected record.
 
 There are a lot of nested components in use here; feel free to look up more information in the [Dash HTML Components documentation](https://dash.plotly.com/dash-html-components) and the [Dash Bootstrap Components documentation](https://dash-bootstrap-components.opensource.faculty.ai/docs/components/) but don't worry too much about the details. The main goal is to showcase the complex layout functionality you can achieve with only about 70 lines of Python code (not counting comments)!
 
@@ -364,7 +364,7 @@ app = Dash(__name__, external_stylesheets=external_stylesheets)
 
 ########## DECLARING LAYOUT COMPONENTS ##########
 
-# markdown component is almost identical to before, we just added a line
+# markdown component is almost identical to before, you just added a line
 # telling the user to select a record
 markdown = dcc.Markdown("""
 # Iris Dataset
@@ -377,11 +377,11 @@ Select any record to view more information!
 
 table = dash_table.DataTable(
     data=full_dataset.sample(10, random_state=1).to_dict(orient="records"),
-    # we want the user to be able to select a row
+    # you want the user to be able to select a row
     row_selectable="single",
-    # suppress default cell selection styling (we are selecting by row, not cell)
+    # suppress default cell selection styling (you are selecting by row, not cell)
     cell_selectable=False,
-    # set an id so we can make attributes of this table into callback inputs
+    # set an id so you can make attributes of this table into callback inputs
     id="tbl"
 )
 
@@ -390,10 +390,10 @@ modal = dbc.Modal(children=[
     # modal header will always be the same
     dbc.ModalHeader(dbc.ModalTitle("Iris Information")),
     # modal body will depend on what was clicked
-    # set and id so we can make this component's children a callback output
+    # set and id so you can make this component's children a callback output
     dbc.ModalBody(id="modal-body")
 ],
-                  # set an id so we can make the modal's open/closed status
+                  # set an id so you can make the modal's open/closed status
                   # a callback output
                   id="modal",
                   # by default, the modal is not open; it opens when a row
@@ -471,16 +471,16 @@ def render_information(rows, selected_rows):
     set the `children` attribute of the modal body (id="modal-body") to display
     data about the selected info
     
-    We have a list of two inputs rather than just one this time, because we
+    You have a list of two inputs rather than just one this time, because you
     need to know the actual contents of the row's data, not just the selected
     index:
       1) The `derived_virtual_data` attribute of the data table is a list of
          dictionaries that represent the data currently being shown in the
-         table. The reason we don't just use the original dataframe that we
+         table. The reason you don't just use the original dataframe that you
          passed in to create the table is that Dash data tables can allow the
-         user to filter, edit, and delete data. We don't have these settings
+         user to filter, edit, and delete data. You don't have these settings
          turned on right now, but feel free to explore them!
-         For the sake of simplicity, we map the `derived_virtual_data`
+         For the sake of simplicity, you map the `derived_virtual_data`
          attribute onto a parameter called `rows`.
       2) The `selected_rows` attribute of the data table is a list of index
          values (i.e. integers). The values in this list correspond to the
@@ -507,4 +507,4 @@ app.run_server(mode="inline", height=500, host="localhost", port=5000)
 
 ## Conclusion
 
-In this lesson, we introduced the Dash library, which is built on top of Flask. Unlike Flask, Dash has functionality to render web pages directly within a Jupyter Notebook! Dash also lets us create HTML and JavaScript functionality, just by writing Python code. HTML and CSS functionality is generally created using Dash _components_, whereas JavaScript functionality is generally created using Dash _callbacks_. Particularly with the Dash Bootstrap Components, it is possible to create sophisticated, dynamic web pages with relatively few lines of Python code.
+In this lesson, you were introduced the Dash library, which is built on top of Flask. Unlike Flask, Dash has functionality to render web pages directly within a Jupyter Notebook! Dash also lets you create HTML and JavaScript functionality, just by writing Python code. HTML and CSS functionality is generally created using Dash _components_, whereas JavaScript functionality is generally created using Dash _callbacks_. Particularly with the Dash Bootstrap Components, it is possible to create sophisticated, dynamic web pages with relatively few lines of Python code.
