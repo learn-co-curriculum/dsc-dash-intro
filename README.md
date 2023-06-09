@@ -68,6 +68,7 @@ You'll run a basic Dash app below, and when you run the cell containing `app.run
 ```python
 # import jupyter notebook version of dash framework
 from jupyter_dash import JupyterDash as Dash
+
 # import html elements for dash
 from dash import html
 
@@ -81,7 +82,8 @@ app.layout = html.P("Hello, World!")
 
 ```python
 import warnings
-warnings.filterwarnings('ignore')
+
+warnings.filterwarnings("ignore")
 
 app.run_server(mode="inline", height=150, host="localhost", port=5000)
 ```
@@ -123,7 +125,8 @@ from dash import dcc
 app = Dash(__name__)
 
 # set the layout to an extended markdown example
-app.layout = dcc.Markdown("""
+app.layout = dcc.Markdown(
+    """
 # Welcome to the Home Page
 
 ## Introduction
@@ -144,7 +147,8 @@ Hello, World! Here is some **bold** and *italic* text, a `code snippet`,
 Below is an image embedded using Markdown, showing the old home page.
 
 ![hello world page](https://curriculum-content.s3.amazonaws.com/data-science/images/flask_hello_world.png)
-""")
+"""
+)
 ```
 
 
@@ -209,12 +213,14 @@ app = Dash(__name__)
 
 # declaring your individual components
 
-markdown = dcc.Markdown("""
+markdown = dcc.Markdown(
+    """
 # Iris Dataset
 
 Below is a DataTable showing a sample of 20 records from the
  [Iris Dataset](https://en.wikipedia.org/wiki/Iris_flower_data_set).
-""")
+"""
+)
 
 table = dash_table.DataTable(
     data=full_dataset.sample(10, random_state=1).to_dict(orient="records")
@@ -222,10 +228,7 @@ table = dash_table.DataTable(
 
 # creating an app layout with these components as children
 
-app.layout = html.Div(children=[
-    html.Div(markdown),
-    html.Div(table)
-])
+app.layout = html.Div(children=[html.Div(markdown), html.Div(table)])
 ```
 
 
@@ -244,16 +247,13 @@ Style sheets are added when the `app` is instantiated. Then you can add your Mar
 
 ```python
 # create a list of external stylesheets, with just one CSS file (for now)
-external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
+external_stylesheets = ["https://codepen.io/chriddyp/pen/bWLwgP.css"]
 
 # create new dash app that uses the stylesheet list
 app = Dash(__name__, external_stylesheets=external_stylesheets)
 
 # set the layout
-app.layout = html.Div(children=[
-    html.Div(markdown),
-    html.Div(table)
-])
+app.layout = html.Div(children=[html.Div(markdown), html.Div(table)])
 ```
 
 
@@ -311,10 +311,8 @@ from dash import Input, Output
 app = Dash(__name__, external_stylesheets=external_stylesheets)
 
 # set the layout to your simple html page with id attributes
-app.layout = html.Div(children=[
-    html.Button("Click here", id="btn"),
-    html.P(id="p")
-]) 
+app.layout = html.Div(children=[html.Button("Click here", id="btn"), html.P(id="p")])
+
 
 # attach a callback so that when n_clicks of the Button changes,
 # the children text of the P changes
@@ -366,14 +364,16 @@ app = Dash(__name__, external_stylesheets=external_stylesheets)
 
 # markdown component is almost identical to before, you just added a line
 # telling the user to select a record
-markdown = dcc.Markdown("""
+markdown = dcc.Markdown(
+    """
 # Iris Dataset
 
 Below is a DataTable showing a sample of 20 records from the
  [Iris Dataset](https://en.wikipedia.org/wiki/Iris_flower_data_set).
  
 Select any record to view more information!
-""")
+"""
+)
 
 table = dash_table.DataTable(
     data=full_dataset.sample(10, random_state=1).to_dict(orient="records"),
@@ -382,43 +382,42 @@ table = dash_table.DataTable(
     # suppress default cell selection styling (you are selecting by row, not cell)
     cell_selectable=False,
     # set an id so you can make attributes of this table into callback inputs
-    id="tbl"
+    id="tbl",
 )
 
 # create a modal (has built-in functionality for user to close it)
-modal = dbc.Modal(children=[
-    # modal header will always be the same
-    dbc.ModalHeader(dbc.ModalTitle("Iris Information")),
-    # modal body will depend on what was clicked
-    # set and id so you can make this component's children a callback output
-    dbc.ModalBody(id="modal-body")
-],
-                  # set an id so you can make the modal's open/closed status
-                  # a callback output
-                  id="modal",
-                  # by default, the modal is not open; it opens when a row
-                  # in the data table is selected
-                  is_open=False
-                 )
+modal = dbc.Modal(
+    children=[
+        # modal header will always be the same
+        dbc.ModalHeader(dbc.ModalTitle("Iris Information")),
+        # modal body will depend on what was clicked
+        # set and id so you can make this component's children a callback output
+        dbc.ModalBody(id="modal-body"),
+    ],
+    # set an id so you can make the modal's open/closed status
+    # a callback output
+    id="modal",
+    # by default, the modal is not open; it opens when a row
+    # in the data table is selected
+    is_open=False,
+)
 
 # similar layout to before, just adding the modal to the end
-app.layout = html.Div(children=[
-    html.Div(markdown),
-    html.Div(table),
-    modal
-])
+app.layout = html.Div(children=[html.Div(markdown), html.Div(table), modal])
 
 ########## HELPER FUNCTIONS ##########
+
 
 def create_list_group(selected_row_data):
     """
     Helper function that takes in a dictionary of data
     and returns a formatted list component
     """
-    return dbc.ListGroup([
-        dbc.ListGroupItem(f"{k}: {v}") for k, v in selected_row_data.items()
-    ])
-    
+    return dbc.ListGroup(
+        [dbc.ListGroupItem(f"{k}: {v}") for k, v in selected_row_data.items()]
+    )
+
+
 def create_image_card(selected_row_data):
     """
     Helper function that takes in a dictionary of data
@@ -437,23 +436,31 @@ def create_image_card(selected_row_data):
         name = "Iris virginica "
         img_url = "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9f/Iris_virginica.jpg/295px-Iris_virginica.jpg"
         img_source = "https://commons.wikimedia.org/wiki/File:Iris_virginica.jpg"
-    
-    return dbc.Card(children=[
-        dbc.CardImg(src=img_url),
-        dbc.CardBody(children=[
-            html.Em(name),
-            html.Small(html.A("(image source)", href=img_source, target="blank_"))
-        ])
-    ])
+
+    return dbc.Card(
+        children=[
+            dbc.CardImg(src=img_url),
+            dbc.CardBody(
+                children=[
+                    html.Em(name),
+                    html.Small(
+                        html.A("(image source)", href=img_source, target="blank_")
+                    ),
+                ]
+            ),
+        ]
+    )
+
 
 ########## CALLBACKS ##########
+
 
 @app.callback(Output("modal", "is_open"), Input("tbl", "selected_rows"))
 def toggle_modal(selected_rows):
     """
     When the `selected_rows` attribute of the data table (id="tbl") changes,
     set the `is_open` attribute of the modal (id="modal") to True
-    
+
     `selected_rows` is None when the page first loads, then is a list of
     row indices that have been selected by the user
     """
@@ -462,15 +469,17 @@ def toggle_modal(selected_rows):
     else:
         return False
 
+
 @app.callback(
     Output("modal-body", "children"),
-    [Input("tbl", "derived_virtual_data"), Input("tbl", "selected_rows")])
+    [Input("tbl", "derived_virtual_data"), Input("tbl", "selected_rows")],
+)
 def render_information(rows, selected_rows):
     """
     When the `selected_rows` attribute of the data table (id="tbl") changes,
     set the `children` attribute of the modal body (id="modal-body") to display
     data about the selected info
-    
+
     You have a list of two inputs rather than just one this time, because you
     need to know the actual contents of the row's data, not just the selected
     index:
@@ -489,15 +498,18 @@ def render_information(rows, selected_rows):
     if selected_rows:
         # selection is set to "single" so there will be exactly 1 selected row
         selected_row_data = rows[selected_rows[0]]
-        
+
         # set up a layout with one row and two columns
-        return html.Div(dbc.Row(children=[
-            # left column is a picture + name of the iris class
-            dbc.Col(create_image_card(selected_row_data)),
-            # right column is a list of all the attributes and their values
-            dbc.Col(create_list_group(selected_row_data))
-        ]))
-            
+        return html.Div(
+            dbc.Row(
+                children=[
+                    # left column is a picture + name of the iris class
+                    dbc.Col(create_image_card(selected_row_data)),
+                    # right column is a list of all the attributes and their values
+                    dbc.Col(create_list_group(selected_row_data)),
+                ]
+            )
+        )
 ```
 
 
